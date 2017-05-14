@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_sqrt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/char_sqrt">
+
+    <EditText
+        android:id="@+id/et_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:background="@color/divider"
+        android:gravity="center"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:minWidth="8dp"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_small" />
+
+    <LinearLayout
+        android:id="@+id/ll_sqrt_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_sqrt_main"
+            style="@style/SingleLineEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>

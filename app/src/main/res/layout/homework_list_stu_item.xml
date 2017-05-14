@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:text="2017-4-20"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_noraml" />
+
+    <TextView
+        android:id="@+id/tv_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_date"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv_date"
+        android:text="已提交"
+        android:textColor="@color/text_green"
+        android:textSize="@dimen/text_noraml_s" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_condition"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/tv_condition"
+        android:text="正确率:"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_noraml" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/tv"
+        android:text="80%"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_noraml_s" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/divider" />
+
+</RelativeLayout>

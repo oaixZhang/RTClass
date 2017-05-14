@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <com.xiao.rtclassteacher.view.CircleImageView
+        android:id="@+id/class_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:src="@mipmap/head" />
+
+    <TextView
+        android:id="@+id/class_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/class_image"
+        android:text="三年一班"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_noraml" />
+
+    <TextView
+        android:id="@+id/member_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/class_name"
+        android:layout_below="@id/class_name"
+        android:text="45人"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/members"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/class_image"
+        android:layout_below="@id/class_image"
+        android:layout_marginTop="5dp"
+        android:text="班级成员"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/class_set_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/member_count"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:text="创建于:2017-03-26"
+        android:textSize="@dimen/text_small" />
+
+    <LinearLayout
+        android:id="@+id/member_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/members"
+        android:layout_marginTop="3dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/photo_personal_info" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/photo_personal_info" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/photo_personal_info" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/photo_personal_info" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/photo_personal_info" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/photo_personal_info" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_class_notice"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/member_image"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/btn"
+        android:text="班级公告" />
+
+    <Button
+        android:id="@+id/btn_homework"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@id/btn_class_notice"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/btn_class_notice"
+        android:background="@mipmap/btn"
+        android:text="作业提交：40/45" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider" />
+
+</RelativeLayout>

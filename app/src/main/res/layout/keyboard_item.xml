@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard_tv"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_margin="1dp"
+    android:background="@drawable/bg_key"
+    android:clickable="true"
+    android:gravity="center"
+    android:text="a"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:textColor="@color/text_black"
+    android:textSize="@dimen/text_noraml_l"
+    android:textStyle="bold" />

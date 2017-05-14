@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_noraml">18sp</dimen>
+    <dimen name="text_noraml_s">16sp</dimen>
+    <dimen name="text_noraml_l">20sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_small_s">10sp</dimen>
+    <dimen name="text_small_l">14sp</dimen>
+
+</resources>

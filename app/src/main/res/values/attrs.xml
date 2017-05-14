@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="accentColor" format="reference" />
+    <attr name="iconColor" format="reference" />
+    <attr name="windowBackground" format="reference" />
+    <attr name="stateSelector" format="reference" />
+    <attr name="fabCircleColor" format="reference" />
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <attr name="imageText" format="string" />
+    <attr name="imageTextColor" format="color" />
+    <attr name="imageTextSize" format="dimension" />
+    <attr name="image" format="reference" />
+    <attr name="imageScaleType">
+        <enum name="fillXY" value="0" />
+        <enum name="center" value="1" />
+    </attr>
+    <declare-styleable name="ImageAndText">
+        <attr name="imageText" />
+        <attr name="imageTextColor" />
+        <attr name="imageTextSize" />
+        <attr name="imageScaleType" />
+        <attr name="image" />
+    </declare-styleable>
+</resources>

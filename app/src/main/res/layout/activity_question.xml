@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <io.github.kexanie.library.MathView
+        android:id="@+id/math_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        auto:engine="KaTeX" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_wrong"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/btn_x_white"
+        auto:layout_anchor="@id/math_view"
+        auto:layout_anchorGravity="bottom|right" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_right"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/choose"
+        auto:layout_anchor="@id/math_view"
+        auto:layout_anchorGravity="bottom|right" />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/icon_report_succeed"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_wrong"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/btn_x"
+        android:visibility="gone" />
+
+</android.support.design.widget.CoordinatorLayout>
