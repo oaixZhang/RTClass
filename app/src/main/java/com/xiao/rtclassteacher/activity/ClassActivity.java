@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import com.xiao.rtclassteacher.R;
 import com.xiao.rtclassteacher.fragment.ClassFragment;
 import com.xiao.rtclassteacher.fragment.HomeworkFragment;
+import com.xiao.rtclassteacher.fragment.MemberFragment;
 import com.xiao.rtclassteacher.fragment.NoticeFragment;
 import com.xiao.rtclassteacher.fragment.QuestionFragment;
 import com.xiao.rtclassteacher.fragment.RTFragment;
@@ -59,7 +60,7 @@ public class ClassActivity extends AppCompatActivity {
         fragmentList = new ArrayList<>();
         fragmentList.add(new HomeworkFragment());
         fragmentList.add(new NoticeFragment());
-        fragmentList.add(new QuestionFragment());
+        fragmentList.add(new MemberFragment());
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

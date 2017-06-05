@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/ll_exponent_main"
         android:layout_toRightOf="@id/ll_exponent_main"
-        android:background="@color/divider"
+        android:background="@null"
         android:gravity="left"
         android:imeOptions="actionNext"
         android:inputType="number"

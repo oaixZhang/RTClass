@@ -11,10 +11,6 @@ import com.xiao.rtclassteacher.R;
 
 import io.github.kexanie.library.MathView;
 
-/*
- * Created by xiao on 2017/3/28.
- */
-
 public class QuestionActivity extends AppCompatActivity {
     private MathView mMathView;
     private Toolbar mToolBar;

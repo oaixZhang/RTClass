@@ -6,22 +6,18 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.xiao.rtclassteacher.R;
-import com.xiao.rtclassteacher.adapter.KeyboardAdapter;
-import com.xiao.rtclassteacher.adapter.RecyclerItemClickListener;
 import com.xiao.rtclassteacher.adapter.SimpleViewPagerAdapter;
 import com.xiao.rtclassteacher.bean.QuestionBean;
+import com.xiao.rtclassteacher.widget.MathInputContainer;
 import com.xiao.rtclassteacher.widget.MathLinearView;
 
 import java.util.ArrayList;
@@ -33,13 +29,34 @@ public class QuestionDisplayActivity extends AppCompatActivity {
     private TextView indexTv;
 
     private String msg;
-    private List<QuestionBean> questionBeanList;
+    private List<QuestionBean> questionList;
     private List<View> viewList;
 
-    private String DEFAULT_KEY = "＋－×÷＞＜＝";
-    private InputMethodManager mInputMethodManager;
-    private LinearLayout keyboardLayout;
-    private boolean isKeyBoardVisiable;
+    private Toolbar mToolBar;
+    private String titleName;
+
+    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            String msg = "";
+            switch (menuItem.getItemId()) {
+                case R.id.action_edit:
+                    msg += "Click edit";
+                    break;
+                case R.id.action_share:
+                    msg += "Click share";
+                    break;
+                case R.id.action_settings:
+                    msg += "Click setting";
+                    break;
+            }
+
+            if (!msg.equals("")) {
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+    };
 
 
     @Override
@@ -47,99 +64,57 @@ public class QuestionDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_display);
         mContext = QuestionDisplayActivity.this;
-        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
-        initView();
+        mToolBar = (Toolbar) findViewById(R.id.toolbar);
+
+        mToolBar.setTitle("实时课堂");
+        setSupportActionBar(mToolBar);
+        mToolBar.setOnMenuItemClickListener(onMenuItemClick);
+
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        indexTv = (TextView) findViewById(R.id.tv_index);
 
         initData();
 
         setUpViewPager();
+
     }
 
-    private void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        indexTv = (TextView) findViewById(R.id.tv_index);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        //keyboard
-        keyboardLayout = (LinearLayout) findViewById(R.id.ll_keyboard);
-        LinearLayout functionLine = (LinearLayout) findViewById(R.id.function_line);
-        TextView switTv = (TextView) functionLine.getChildAt(0);
-        switTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mInputMethodManager.showInputMethodPicker();
-            }
-        });
-        TextView spaceTv = (TextView) functionLine.getChildAt(1);
-        spaceTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        TextView backTv = (TextView) functionLine.getChildAt(2);
-        backTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        TextView enTv = (TextView) functionLine.getChildAt(3);
-        enTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
-        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 7));
-        KeyboardAdapter keyboardAdapter = new KeyboardAdapter(mContext, DEFAULT_KEY);
-        keyboardAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
-            @Override
-            public void onItemClickListener(View v, int position) {
-
-            }
-        });
-        recyclerView.setAdapter(keyboardAdapter);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //写一个menu的资源文件.然后创建就行了.
+        getMenuInflater().inflate(R.menu.menu_tool, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void initData() {
         viewList = new ArrayList<>();
-        questionBeanList = new ArrayList<>();
 
         Intent intent = getIntent();
-        if (intent != null) {
-            msg = intent.getStringExtra("msg");
-        }
-        if (msg != null) {
-            JsonArray jsonArray = new JsonParser().parse(msg).getAsJsonArray();
-            for (int i = 0; i < jsonArray.size(); i++) {
-                JsonObject jsonObject = (JsonObject) jsonArray.get(i);
-                QuestionBean questionBean = new QuestionBean();
-                questionBean.setTitle(jsonObject.get("title").getAsString());
-                questionBean.setQuestionid(jsonObject.get("questionid").getAsInt());
-                questionBean.setType(jsonObject.get("type").getAsString());
-                questionBean.setConclusion(jsonObject.get("conclusion").getAsString());
-                View view = LayoutInflater.from(mContext).inflate(R.layout.view_question, null);
-                TextView tv_title = (TextView) view.findViewById(R.id.content);
-                TextView tv_id = (TextView) view.findViewById(R.id.tv_id);
-                TextView tv_type = (TextView) view.findViewById(R.id.tv_type);
-                LinearLayout input = (LinearLayout) view.findViewById(R.id.ll_input);
-                MathLinearView mathLinearView = new MathLinearView(mContext, input);
-                input.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!isKeyBoardVisiable)
-                            keyboardLayout.setVisibility(View.VISIBLE);
-                    }
-                });
+        titleName = intent.getStringExtra("titleName");
+        if (titleName != null && !(titleName.equals("")))
+            mToolBar.setTitle(titleName);
+        questionList = (List<QuestionBean>) intent.getSerializableExtra("questionList");
 
-                tv_title.setText(questionBean.getTitle());
-                tv_id.setText(questionBean.getQuestionid() + "");
-                tv_type.setText(questionBean.getType());
-                questionBeanList.add(questionBean);
-                viewList.add(view);
-            }
+//        withBackend();
+
+        for (int i = 0; i < questionList.size(); i++) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.view_question, null);
+
+            TextView tv_content = (TextView) view.findViewById(R.id.content);
+            TextView tv_id = (TextView) view.findViewById(R.id.tv_id);
+            TextView tv_type = (TextView) view.findViewById(R.id.tv_type);
+            MathInputContainer container = (MathInputContainer) view.findViewById(R.id.container);
+            new MathLinearView(mContext, container);
+
+            tv_content.setText(questionList.get(i).getContent());
+            tv_id.setText(questionList.get(i).getQuestionid() + "");
+            tv_type.setText(questionList.get(i).getType() + "");
+
+            viewList.add(view);
         }
+
     }
 
     private void setUpViewPager() {

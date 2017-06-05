@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,17 +9,25 @@
     android:orientation="vertical"
     tools:context="com.xiao.rtclassteacher.activity.LoginActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="20dp"
         android:background="@mipmap/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal">
 
         <TextView
@@ -35,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:hint="请输入您的账号"
+            android:inputType="text"
             android:textSize="@dimen/text_noraml" />
     </LinearLayout>
 
@@ -57,35 +67,99 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:hint="请输入您的密码"
+            android:inputType="textPassword"
             android:textSize="@dimen/text_noraml" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/register_part"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@mipmap/btn"
-        android:text="@string/login"
-        android:textColor="@color/text_white"
-        android:textSize="20sp" />
+        android:orientation="vertical"
+        android:visibility="gone">
 
-    <TextView
-        android:id="@+id/tv_for_register"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="@string/name"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:hint="请输入您的昵称"
+                android:textSize="@dimen/text_noraml" />
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_stu"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="学生"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/radio_teacher"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="老师"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_part"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:text="还没有账号？点击注册"
-        android:textColor="?attr/colorPrimary" />
-    <Button
-        android:id="@+id/btn_stu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="我是学生"
-        android:textColor="@color/text_black"
-        android:textSize="20sp" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/btn"
+            android:text="@string/login"
+            android:textColor="@color/text_white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_for_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="还没有账号？点击注册"
+            android:textColor="?attr/colorPrimary" />
+
+        <Button
+            android:id="@+id/btn_stu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="我是学生"
+            android:textColor="@color/text_black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 </LinearLayout>

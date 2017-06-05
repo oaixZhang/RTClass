@@ -11,10 +11,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xiao.rtclassteacher.R;
 import com.xiao.rtclassteacher.fragment.ClassFragment;
-import com.xiao.rtclassteacher.fragment.HomeworkFragment;
 import com.xiao.rtclassteacher.fragment.QuestionFragment;
 import com.xiao.rtclassteacher.fragment.RTFragment;
 import com.xiao.rtclassteacher.fragment.StuHomeworkFragment;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+
+    private TextView tagTv, nameTv, phoneTv;
 
     private List<String> tabTitles;
     private List<Fragment> fragmentList;
@@ -56,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         if (mNavigationView != null) {
             setUpNavigation();
         }
+
+        RelativeLayout haderView = (RelativeLayout) mNavigationView.getHeaderView(0);
+        tagTv = (TextView) haderView.findViewById(R.id.tag);
+        phoneTv = (TextView) haderView.findViewById(R.id.phone);
+        nameTv = (TextView) haderView.findViewById(R.id.username);
 
         setupViewPager();
 
@@ -91,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadTeacherView() {
+        tagTv.setText("教师");
         tabTitles.add("作业情况");
         tabTitles.add("班级");
         tabTitles.add("题库");
@@ -100,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadStudentView() {
+        tagTv.setText("学生");
         tabTitles.add("作业");
         tabTitles.add("题库");
         fragmentList.add(new StuHomeworkFragment());

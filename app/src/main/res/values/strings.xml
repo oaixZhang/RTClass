@@ -2,7 +2,8 @@
     <string name="app_name">RTClassTeacher</string>
     <string name="user_name">用户名:</string>
     <string name="password">密 码:</string>
-    <string name="login">登录</string>
+    <string name="name">昵 称:</string>
+    <string name="login">点击登录</string>
     <string name="settings">系统设置</string>
     <string name="profile">个人资料</string>
     <string name="drawer_open">open</string>
