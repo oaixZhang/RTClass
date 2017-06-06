@@ -91,7 +91,7 @@ public class QuestionDisplayActivity extends AppCompatActivity {
 
             tv_content.setText(questionList.get(i).getContent());
             tv_id.setText(questionList.get(i).getQuestionid() + "");
-            tv_type.setText(questionList.get(i).getType() + "");
+            tv_type.setText(questionList.get(i).getTypeStr());
 
             viewList.add(view);
         }

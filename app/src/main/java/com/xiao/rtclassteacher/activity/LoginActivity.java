@@ -146,32 +146,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void initQuestion() {
         List<QuestionBean> questionList = new ArrayList<>();
-        questionList.add(new QuestionBean(1, 2, "某届乒乓球比赛中，甲选手与乙选手在决赛中相遇.若每局比赛，甲选手获胜的概率为2/3，乙选手获胜的概率为1/3 ，每局比赛相互独立，比赛采用五局三胜制（即五局中先胜三局者为胜，比赛结束）. 则甲选手获胜的概率",
-                "zheshidaan", "/&sqrt"));
-        questionList.add(new QuestionBean(2, 1, "一个圆柱形容器的容积为V立方米，开始用一根小水管向容器内注水，水面高度达到容器高度一半后，改用一根口径为小水管2倍的大水管注水．向容器中注满水的全过程共用时间t分．求两根水管各自注水的速度",
-                "zheshidaan", "/&sqrt"));
-        questionList.add(new QuestionBean(3, 1, "若a的值使得x2+4x+a=（x+2）2﹣1成立，则a的值为",
-                "zheshidaan", "/&sqrt"));
-        questionList.add(new QuestionBean(4, 0, "不等式|2x-1|>2x的解集为 ",
-                "zheshidaan", "/&sqrt"));
+        questionList.add(new QuestionBean(1, 1, "第十二届全运会于2013年8月31日在沈阳举行，运动会期间从自A大学的2名志愿者和自B大学的4名志愿者中随机抽取2人到体操比赛场馆服务，至少有一名A大学志愿者的概率是",
+                "0.6", "/&sqrt"));
+        questionList.add(new QuestionBean(2, 2, "一个圆柱形容器的容积为V立方米，开始用一根小水管向容器内注水，水面高度达到容器高度一半后，改用一根口径为小水管2倍的大水管注水．向容器中注满水的全过程共用时间t分．求两根水管各自注水的速度",
+                "解：......", "/&sqrt"));
+        questionList.add(new QuestionBean(3, 1, "4的平方根是",
+                "±2", "/&sqrt"));
+        questionList.add(new QuestionBean(4, 1, "抛物线y＝2x2－bx＋3的对称轴是直线x＝l，则b的值为",
+                "4", "=-+x"));
+        questionList.add(new QuestionBean(5, 1, "已知一次函数，它的图像不经过哪个象限",
+                "第三象限", "/&sqrt"));
+        questionList.add(new QuestionBean(6, 1, "在Rt△ABC中，∠A=90°，如果BC=5，sinB=0.6，那么AC=",
+                "3", "/&sqrt"));
+        questionList.add(new QuestionBean(7, 2, "从甲学校到乙学校有A1、A2、A3三条线路，从乙学校到丙学校有B1、B2二条线路．\n" +
+                "（1）利用树状图或列表的方法表示从甲学校到丙学校的线路中所有可能出现的结果；\n" +
+                "（2）小张任意走了一条从甲学校到丙学校的线路，求小张恰好经过了B1线路的概率是多少？",
+                "（2）∴小张从甲学校到丙学校共有6条不同的线路，其中经过B1线路有3....." +
+                        "∴P（小张恰好经过了B1线路的概率）=.....", "/&sqrt"));
+        questionList.add(new QuestionBean(8, 1, "菱形的周长为20cm，较短的一条对角线长是6cm，则这个菱形的面积为",
+                "24", "/&sqrt"));
         sp.setValue("questions", JsonUtil.toJson(questionList));
     }
 
     private void initHomework() {
         HomeWorkBean homeWorkBean = new HomeWorkBean
-                ("05月27日", new int[]{1, 2, 4}, new int[]{1, 2}, 1, 1);
+                ("05月27日", new int[]{1, 2, 4, 6, 7,}, new int[]{1, 2, 4, 6}, 1, 1);
         HomeWorkBean homeWorkBean1 = new HomeWorkBean
-                ("05月26日", new int[]{1, 3, 4}, new int[]{1}, 1, 1);
+                ("05月26日", new int[]{1, 3, 4, 8}, new int[]{1}, 1, 1);
         HomeWorkBean homeWorkBean2 = new HomeWorkBean
-                ("05月25日", new int[]{1, 2, 4}, new int[]{1, 2}, 1, 1);
+                ("05月25日", new int[]{1, 2, 4, 5}, new int[]{1, 2, 4}, 1, 1);
         HomeWorkBean homeWorkBean3 = new HomeWorkBean
-                ("05月24日", new int[]{1, 3, 2, 4}, new int[]{1}, 1, 1);
+                ("05月24日", new int[]{1, 3, 2, 4, 6}, new int[]{1}, 1, 1);
         HomeWorkBean homeWorkBean4 = new HomeWorkBean
-                ("05月23日", new int[]{1, 3, 2, 4}, new int[]{1, 2, 3}, 1, 1);
+                ("05月23日", new int[]{1, 3, 2, 4, 5, 7}, new int[]{1, 2, 5, 7}, 1, 1);
         HomeWorkBean homeWorkBean5 = new HomeWorkBean
-                ("05月22日", new int[]{1, 3, 4}, new int[]{1, 3}, 1, 1);
+                ("05月22日", new int[]{1, 3, 4, 5, 8}, new int[]{1, 3}, 1, 1);
         HomeWorkBean homeWorkBean6 = new HomeWorkBean
-                ("05月21日", new int[]{1, 3, 2, 4}, new int[]{1, 3}, 1, 1);
+                ("05月21日", new int[]{1, 3, 2, 4, 6, 7}, new int[]{1, 3, 6, 7}, 1, 1);
         List<HomeWorkBean> list = new ArrayList<>();
         list.add(homeWorkBean);
         list.add(homeWorkBean1);

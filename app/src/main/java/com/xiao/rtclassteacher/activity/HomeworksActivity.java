@@ -87,12 +87,13 @@ public class HomeworksActivity extends AppCompatActivity {
             tv_content.setText(questionList.get(i).getContent());
             tv_id.setText(questionList.get(i).getQuestionid() + "");
             tv_type.setText(questionList.get(i).getTypeStr());
-            tv_answer.setText(questionList.get(i).getStuAnswer());
+            tv_answer.setText(questionList.get(i).getAnswer());
 
             if (questionList.get(i).getRight() == 1)
                 iv_right.setVisibility(View.VISIBLE);
-            else
+            else{
                 iv_wrong.setVisibility(View.VISIBLE);
+            }
 
             viewList.add(view);
         }

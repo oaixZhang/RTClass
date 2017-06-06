@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         tabTitles.add("题库");
         fragmentList.add(new StuHomeworkFragment());
         fragmentList.add(new QuestionFragment());
+        headImage.setImageResource(R.mipmap.avatar);
     }
 
     private void initView() {

@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
@@ -189,12 +190,15 @@ public class StuHomeworkFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     questionList = new ArrayList<>();
-                    int[] rightIds = homework.getRightIds();
+
                     for (int id : homework.getQuestionIds()) {
                         for (QuestionBean question : list) {
                             if (question.getQuestionid() == id) {
-//                                if (rightIds.hashCode())
-//                                question.setRight();
+                                //正确题目标记
+                                for (int count = 0; count < homework.getRightIds().length; count++) {
+                                    if (question.getQuestionid() == homework.getRightIds()[count])
+                                        question.setRight(1);
+                                }
                                 questionList.add(question);
                                 break;
                             }

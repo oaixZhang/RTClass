@@ -76,6 +76,7 @@
             android:id="@+id/iv_right"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_below="@id/tv_answer"
             android:layout_centerInParent="true"
             android:src="@mipmap/choose"
             android:visibility="invisible" />
@@ -84,6 +85,7 @@
             android:id="@+id/iv_wrong"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_below="@id/tv_answer"
             android:layout_centerInParent="true"
             android:src="@mipmap/btn_x"
             android:visibility="invisible" />
