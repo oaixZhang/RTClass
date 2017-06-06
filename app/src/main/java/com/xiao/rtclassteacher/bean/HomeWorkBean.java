@@ -1,8 +1,5 @@
 package com.xiao.rtclassteacher.bean;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 /**
  * Created by xiao
  * 2017/6/5
@@ -13,8 +10,20 @@ public class HomeWorkBean {
     private int[] questionIds;
     private int[] rightIds;
     private int status;
+    private String statusStr;
     private int target;
-    private float accuracy;
+    private int accuracy;
+
+    public HomeWorkBean(String date, int[] questionIds, int[] rightIds, int status, int target) {
+        this.date = date;
+        this.questionIds = questionIds;
+        this.rightIds = rightIds;
+        this.status = status;
+        this.target = target;
+    }
+
+    public HomeWorkBean() {
+    }
 
     public int[] getQuestionIds() {
         return questionIds;
@@ -32,11 +41,11 @@ public class HomeWorkBean {
         this.rightIds = rightIds;
     }
 
-    public float getAccuracy() {
-        return accuracy;
+    public int getAccuracy() {
+        return rightIds.length * 100 / questionIds.length;
     }
 
-    public void setAccuracy(float accuracy) {
+    public void setAccuracy(int accuracy) {
         this.accuracy = accuracy;
     }
 
@@ -62,5 +71,13 @@ public class HomeWorkBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getStatusStr() {
+        return status == 1 ? "已提交" : "未提交";
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
     }
 }

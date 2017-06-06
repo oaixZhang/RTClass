@@ -38,8 +38,14 @@ public class HomeworkListFragment extends Fragment {
 
     private void initData() {
         studentBeanList = new ArrayList<>();
-        for (int i = 0; i < 20; i++)
-            studentBeanList.add(new StudentBean("zhangxiao" + i));
+        studentBeanList.add(new StudentBean("xiaoz"));
+        studentBeanList.add(new StudentBean("peter"));
+        studentBeanList.add(new StudentBean("shangm"));
+        studentBeanList.add(new StudentBean("lisi"));
+        studentBeanList.add(new StudentBean("jieshi"));
+        studentBeanList.add(new StudentBean("gavin"));
+        studentBeanList.add(new StudentBean("lisi"));
+        studentBeanList.add(new StudentBean("zhangsan"));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(new MyAdapter());
     }

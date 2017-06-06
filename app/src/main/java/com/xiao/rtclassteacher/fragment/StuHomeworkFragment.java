@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.xiao.rtclassteacher.R;
+import com.xiao.rtclassteacher.activity.HomeworksActivity;
+import com.xiao.rtclassteacher.activity.QuestionActivity;
 import com.xiao.rtclassteacher.activity.QuestionDisplayActivity;
 import com.xiao.rtclassteacher.bean.HomeWorkBean;
 import com.xiao.rtclassteacher.bean.QuestionBean;
@@ -29,9 +32,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
@@ -61,8 +62,10 @@ public class StuHomeworkFragment extends Fragment {
 
     private LineChartView lineChart;
 
-    String[] date = {"5.21", "5.22", "5.23", "5.24", "5.25", "5.26", "5.27"};//X轴的标注
+    private String[] date = new String[7];//X轴的标注
+    //    private int score[] = new int[7];//图表的数据点
     int[] score = {50, 42, 90, 100, 60, 74, 60};//图表的数据点
+
     private List<PointValue> mPointValues = new ArrayList<>();
     private List<AxisValue> mAxisXValues = new ArrayList<>();
 
@@ -76,9 +79,8 @@ public class StuHomeworkFragment extends Fragment {
         record = (LinearLayout) view.findViewById(R.id.homework_record);
         lineChart = (LineChartView) view.findViewById(R.id.chart);
 
-        inintChartView();
-
         initRecordData();
+        inintChartView();
 
         final HomeWorkBean homeWorkBean;
 //        SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日");
@@ -115,7 +117,7 @@ public class StuHomeworkFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("questionList", (Serializable) questionList);
                 intent.putExtras(bundle);
-                intent.putExtra("titleName", "xx的作业");
+                intent.putExtra("titleName", "xiaoz的作业");
                 startActivity(intent);
             }
         });
@@ -151,26 +153,59 @@ public class StuHomeworkFragment extends Fragment {
 
     private void initRecordData() {
 
-        for (int i = 0; i < 7; i++) {
+        final List<QuestionBean> list;
+        String questionStr = sp.getValue("questions", "");
+        Log.i("test", questionStr);
+        list = JsonUtil.getGson().fromJson(questionStr,
+                new TypeToken<ArrayList<QuestionBean>>() {
+                }.getType());
+
+
+        String howordkRecord = sp.getValue("homeworkRecord", "");
+        Log.i("test", howordkRecord);
+
+        final List<HomeWorkBean> homeworkList = JsonUtil.getGson()
+                .fromJson(howordkRecord, new TypeToken<ArrayList<HomeWorkBean>>() {
+                }.getType());
+
+        for (int i = 0; i < homeworkList.size(); i++) {
+            final HomeWorkBean homework = homeworkList.get(i);
+            score[i] = homework.getAccuracy();
+            date[i] = homework.getDate();
+//            Log.i("test", "xieru: " + homework.getRightIds().length + " /"
+//                    + homework.getQuestionIds().length + "=" + homework.getAccuracy());
             LinearLayout aline = (LinearLayout) LayoutInflater.from(mContext)
                     .inflate(R.layout.homework_list_stu_item, null);
+            //initLineView
+            TextView dateTv = (TextView) aline.findViewById(R.id.tv_date);
+            TextView statusTv = (TextView) aline.findViewById(R.id.tv_condition);
+            TextView accuracy = (TextView) aline.findViewById(R.id.tv1);
+
+            dateTv.setText(homework.getDate());
+            statusTv.setText(homework.getStatusStr());
+            accuracy.setText(homework.getAccuracy() + "%");
+
             aline.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     questionList = new ArrayList<>();
-                    questionList.add(new QuestionBean(1, 2, "当数据发生变化时，可以通过notifyDataSetChanged来刷新UI，通过getItemViewType来获取对应位置的",
-                            "zheshidaan", "/&sqrt"));
-                    questionList.add(new QuestionBean(2, 1, "一个圆柱形容器的容积为V立方米，开始用一根小水管向容器内注水，水面高度达到容器高度一半后，改用一根口径为小水管2倍的大水管注水．向容器中注满水的全过程共用时间t分．求两根水管各自注水的速度",
-                            "zheshidaan", "/&sqrt"));
-                    questionList.add(new QuestionBean(3, 1, "若a的值使得x2+4x+a=（x+2）2﹣1成立，则a的值为",
-                            "zheshidaan", "/&sqrt"));
-                    questionList.add(new QuestionBean(4, 0, "当数据发生变化时，可以通过notifyDataSetChanged来刷新UI，通过getItemViewType来获取对应位置的",
-                            "zheshidaan", "/&sqrt"));
-                    Intent intent = new Intent(mContext, QuestionDisplayActivity.class);
+                    int[] rightIds = homework.getRightIds();
+                    for (int id : homework.getQuestionIds()) {
+                        for (QuestionBean question : list) {
+                            if (question.getQuestionid() == id) {
+//                                if (rightIds.hashCode())
+//                                question.setRight();
+                                questionList.add(question);
+                                break;
+                            }
+                        }
+                    }
+
+                    Intent intent = new Intent(mContext, HomeworksActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("questionList", (Serializable) questionList);
                     intent.putExtras(bundle);
-                    intent.putExtra("titleName", "xx的作业");
+                    intent.putExtra("titleName", "xiaoz的作业");
                     startActivity(intent);
                 }
             });

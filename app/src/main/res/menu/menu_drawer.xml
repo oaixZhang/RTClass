@@ -8,8 +8,8 @@
             android:icon="@mipmap/tab_addressbook_normal"
             android:title="@string/profile" />
         <item
-            android:id="@+id/settings"
+            android:id="@+id/input_demmo"
             android:icon="@mipmap/btn_settings_personal"
-            android:title="@string/settings" />
+            android:title="输入演示" />
     </group>
 </menu>

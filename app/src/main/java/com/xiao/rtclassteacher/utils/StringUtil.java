@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -30,7 +31,7 @@ public class StringUtil {
     private StringUtil() {
     }
 
-    public static String baseUrl = "http://192.168.1.106:8080/";
+    public static String baseUrl = "http://113.54.250.173:8080/";
 
     public static String readFromStream(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -39,6 +40,18 @@ public class StringUtil {
         while ((i = is.read(buffer)) != -1)
             sb.append(new String(buffer, 0, i));
         return sb.toString();
+    }
+
+    public static String readInputStream(InputStream is) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = is.read(buffer)) != -1) {
+            bos.write(buffer, 0, len);
+        }
+        is.close();
+        bos.close();
+        return bos.toString();
     }
 
     public static boolean isEmail(String strEmail) {

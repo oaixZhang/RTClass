@@ -39,7 +39,7 @@ public class ClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
         initView();
-        mToolbar.setTitle("三年**班");
+        mToolbar.setTitle("三年一班");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupViewPager();

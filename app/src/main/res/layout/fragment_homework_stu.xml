@@ -30,23 +30,32 @@
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/text_noraml_l" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/tv"
-                    android:layout_below="@id/tv"
-                    android:layout_marginLeft="20dp"
-                    android:text="xxxxxxxxxxxxx"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_noraml_s" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignLeft="@id/tv"-->
+                    <!--android:layout_below="@id/tv"-->
+                    <!--android:layout_marginLeft="20dp"-->
+                    <!--android:text="xxxxxxxxxxxxx"-->
+                    <!--android:textColor="@color/colorPrimary"-->
+                    <!--android:textSize="@dimen/text_noraml_s" />-->
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="30dp"
-                    android:src="@mipmap/choose" />
+                <!--<ImageView-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="30dp"-->
+                    <!--android:src="@mipmap/btn_x" />-->
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未提交"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_noraml_s" />
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>

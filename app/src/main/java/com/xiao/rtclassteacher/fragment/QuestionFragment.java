@@ -1,8 +1,11 @@
 package com.xiao.rtclassteacher.fragment;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,26 +13,37 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xiao.rtclassteacher.R;
-import com.xiao.rtclassteacher.activity.QuestionDisplayActivity;
+import com.xiao.rtclassteacher.activity.QuestionActivity;
 import com.xiao.rtclassteacher.bean.QuestionBean;
 import com.xiao.rtclassteacher.utils.JsonUtil;
 import com.xiao.rtclassteacher.utils.SharePreUtil;
+import com.xiao.rtclassteacher.utils.StringUtil;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
-import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private Context mContext;
     private List<QuestionBean> questionList;
-    private SharePreUtil sp;
+
+
+    protected volatile ProgressDialog mDialog;
+
+    protected ProgressBar pb;
+
+    protected SharePreUtil sp;
+
+    protected Activity mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,31 +55,76 @@ public class QuestionFragment extends Fragment {
 
         initData();
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
-        mRecyclerView.setAdapter(new MyAdapter());
-
         return view;
 
     }
 
     private void initData() {
 
-//        questionList = new ArrayList<>();
-//        questionList.add(new QuestionBean(1, 2, "某届乒乓球比赛中，甲选手与乙选手在决赛中相遇.若每局比赛，甲选手获胜的概率为2/3，乙选手获胜的概率为1/3 ，每局比赛相互独立，比赛采用五局三胜制（即五局中先胜三局者为胜，比赛结束）. 则甲选手获胜的概率",
-//                "zheshidaan", "/&sqrt"));
-//        questionList.add(new QuestionBean(2, 1, "一个圆柱形容器的容积为V立方米，开始用一根小水管向容器内注水，水面高度达到容器高度一半后，改用一根口径为小水管2倍的大水管注水．向容器中注满水的全过程共用时间t分．求两根水管各自注水的速度",
-//                "zheshidaan", "/&sqrt"));
-//        questionList.add(new QuestionBean(3, 1, "若a的值使得x2+4x+a=（x+2）2﹣1成立，则a的值为",
-//                "zheshidaan", "/&sqrt"));
-//        questionList.add(new QuestionBean(4, 0, "不等式|2x-1|>2x的解集为 ",
-//                "zheshidaan", "/&sqrt"));
-//        Log.i("test", JsonUtil.toJson(questionList));
-//        sp.setValue("questions", JsonUtil.toJson(questionList));
+        local();
+
+//        request();
+    }
+
+    private void local() {
         String questionStr = sp.getValue("questions", "");
         Log.i("test", questionStr);
         questionList = JsonUtil.getGson().fromJson(questionStr,
                 new TypeToken<ArrayList<QuestionBean>>() {
                 }.getType());
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        mRecyclerView.setAdapter(new MyAdapter());
+    }
+
+    private void request() {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                dismissDialog();
+                String questionStr = (String) msg.obj;
+                questionList = JsonUtil.getGson().fromJson(questionStr,
+                        new TypeToken<ArrayList<QuestionBean>>() {
+                        }.getType());
+                mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+                mRecyclerView.setAdapter(new MyAdapter());
+            }
+        };
+        getProgressDialog().show();
+        httpRequest(handler);
+    }
+
+    private void httpRequest(final Handler handler) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                String urlString = StringUtil.baseUrl + "question";
+                try {
+                    URL url = new URL(urlString);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.connect();
+                    int code = con.getResponseCode();
+                    Log.i("test", "response code: " + code);
+                    Log.i("test", "response msg: " + con.getResponseMessage());
+                    if (code == 200) {
+                        InputStream is = con.getInputStream();
+                        String str = StringUtil.readFromStream(is);
+                        Log.i("test", "response body: " + str);
+//                        JsonObject jo = new JsonParser().parse(str).getAsJsonObject();
+//                        String s = jo.get("data").getAsString();
+//                        Log.i("test", "response body data: " + s);
+                        Message msg = new Message();
+                        msg.obj = str;
+                        handler.sendMessage(msg);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
@@ -84,7 +143,7 @@ public class QuestionFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, QuestionDisplayActivity.class);
+                    Intent intent = new Intent(mContext, QuestionActivity.class);
                     Bundle bundle = new Bundle();
                     List<QuestionBean> list = new ArrayList<>();
                     list.add(questionList.get(position));
@@ -108,6 +167,32 @@ public class QuestionFragment extends Fragment {
                 typeTv = (TextView) itemView.findViewById(R.id.question_type);
                 contentTv = (TextView) itemView.findViewById(R.id.question_content);
             }
+        }
+    }
+
+    /**
+     * @return
+     * @Description: 显示进度条
+     */
+    protected ProgressDialog getProgressDialog() {
+        if (mDialog == null) {
+            String mMessage = "加载中...";
+
+            mDialog = new ProgressDialog(mContext);
+            mDialog.setTitle(null);
+            mDialog.setMessage(mMessage);
+            mDialog.setIndeterminate(true);
+        }
+        return mDialog;
+    }
+
+    /**
+     * @Description: 关闭进度条
+     */
+    protected void dismissDialog() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
         }
     }
 

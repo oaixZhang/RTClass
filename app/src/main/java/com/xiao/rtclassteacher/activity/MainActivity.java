@@ -1,5 +1,6 @@
 package com.xiao.rtclassteacher.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,10 +12,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiao.rtclassteacher.R;
+import com.xiao.rtclassteacher.bean.UserBean;
 import com.xiao.rtclassteacher.fragment.ClassFragment;
 import com.xiao.rtclassteacher.fragment.QuestionFragment;
 import com.xiao.rtclassteacher.fragment.RTFragment;
@@ -30,13 +35,16 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
 
+    private Activity mContext = this;
+
+    private UserBean user;
+
     private TextView tagTv, nameTv, phoneTv;
+    private ImageView headImage;
 
     private List<String> tabTitles;
     private List<Fragment> fragmentList;
     private FragmentPagerAdapter mAdapter;
-
-    private boolean isTeacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         if (intent != null)
-            isTeacher = intent.getBooleanExtra("isTeacher", true);
-        System.out.println("MainActivity: isTeacher：" + isTeacher);
+            user = (UserBean) intent.getSerializableExtra("user");
+
+        Log.i("test", "MainActivity: user：" + user);
         initView();
 
         mToolBar.setTitle("实时课堂");
@@ -64,6 +73,20 @@ public class MainActivity extends AppCompatActivity {
         tagTv = (TextView) haderView.findViewById(R.id.tag);
         phoneTv = (TextView) haderView.findViewById(R.id.phone);
         nameTv = (TextView) haderView.findViewById(R.id.username);
+        headImage = (ImageView) haderView.findViewById(R.id.profile_image);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                if (item.getItemId() == R.id.input_demmo) {
+                    Intent intent = new Intent(mContext, InputActivity.class);
+                    startActivity(intent);
+                }
+                return true;
+            }
+        });
+
+
+        nameTv.setText(user.getName());
 
         setupViewPager();
 
@@ -73,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         tabTitles = new ArrayList<>();
         fragmentList = new ArrayList<>();
 
-        if (isTeacher) {
+        if (user.getTag() == 1) {
             loadTeacherView();
         } else {
             loadStudentView();
@@ -106,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentList.add(new RTFragment());
         fragmentList.add(new ClassFragment());
         fragmentList.add(new QuestionFragment());
+        headImage.setImageResource(R.mipmap.avatar);
     }
 
     private void loadStudentView() {

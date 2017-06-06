@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class QuestionBean implements Serializable {
     private int questionid;
     private int type;
+    private int right;
+
     private String content;
     private String answer;
     private String symbol;
@@ -18,6 +20,17 @@ public class QuestionBean implements Serializable {
         this.content = content;
         this.answer = answer;
         this.symbol = symbol;
+    }
+
+    public QuestionBean(int questionid, int type, String content,
+                        String answer, String symbol, int right, String stuAnswer) {
+        this.questionid = questionid;
+        setType(type);
+        this.content = content;
+        this.answer = answer;
+        this.symbol = symbol;
+        this.right = right;
+        this.stuAnswer = stuAnswer;
     }
 
     public QuestionBean() {
@@ -88,5 +101,13 @@ public class QuestionBean implements Serializable {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public int getRight() {
+        return right;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
     }
 }
