@@ -36,10 +36,10 @@ public class HomeworkFragment extends Fragment {
 
     private void initData() {
         titleList = new ArrayList<>();
-        titleList.add("2017.3.28");
-        titleList.add("2017.3.27");
-        titleList.add("2017.3.26");
-        titleList.add("2017.3.25");
+        titleList.add("2017.5.28");
+        titleList.add("2017.5.27");
+        titleList.add("2017.5.26");
+        titleList.add("2017.5.25");
         mTabLayout.addTab(mTabLayout.newTab().setText(titleList.get(0)));
         mTabLayout.addTab(mTabLayout.newTab().setText(titleList.get(1)));
         mTabLayout.addTab(mTabLayout.newTab().setText(titleList.get(2)));

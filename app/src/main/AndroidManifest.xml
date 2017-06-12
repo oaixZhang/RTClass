@@ -24,6 +24,7 @@
         <activity android:name=".activity.QuestionDisplayActivity" />
         <activity android:name=".activity.InputActivity" />
         <activity android:name=".activity.HomeworksActivity" />
+        <activity android:name=".activity.TQuestionActivity" />
 
         <service
             android:name=".service.KeyBoardService"

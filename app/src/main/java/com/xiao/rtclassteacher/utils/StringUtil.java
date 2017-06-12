@@ -31,7 +31,7 @@ public class StringUtil {
     private StringUtil() {
     }
 
-    public static String baseUrl = "http://113.54.250.173:8080/";
+    public static String baseUrl = "http://127.0.0.1:8080/";
 
     public static String readFromStream(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();

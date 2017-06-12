@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 import com.xiao.rtclassteacher.R;
 import com.xiao.rtclassteacher.activity.QuestionActivity;
 import com.xiao.rtclassteacher.activity.QuestionDisplayActivity;
+import com.xiao.rtclassteacher.activity.TQuestionActivity;
 import com.xiao.rtclassteacher.bean.QuestionBean;
 import com.xiao.rtclassteacher.bean.StudentBean;
 import com.xiao.rtclassteacher.utils.JsonUtil;
@@ -78,7 +79,7 @@ public class RTFragment extends Fragment {
                     list = JsonUtil.getGson().fromJson(questionStr,
                             new TypeToken<ArrayList<QuestionBean>>() {
                             }.getType());
-                    Intent intent = new Intent(mContext, QuestionActivity.class);
+                    Intent intent = new Intent(mContext, TQuestionActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("questionList", (Serializable) list);
                     intent.putExtras(bundle);

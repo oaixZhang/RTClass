@@ -6,15 +6,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.xiao.rtclassteacher.R;
 import com.xiao.rtclassteacher.activity.QuestionActivity;
+import com.xiao.rtclassteacher.activity.QuestionDisplayActivity;
+import com.xiao.rtclassteacher.activity.TQuestionActivity;
+import com.xiao.rtclassteacher.bean.QuestionBean;
 import com.xiao.rtclassteacher.bean.StudentBean;
+import com.xiao.rtclassteacher.utils.JsonUtil;
+import com.xiao.rtclassteacher.utils.SharePreUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +34,14 @@ public class HomeworkListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<StudentBean> studentBeanList;
     private Context mContext;
+    private SharePreUtil sp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_class, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mContext = getActivity();
+        sp = new SharePreUtil(mContext);
         initData();
         return view;
     }
@@ -65,7 +75,19 @@ public class HomeworkListFragment extends Fragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(mContext, QuestionActivity.class));
+                    List<QuestionBean> list;
+                    String questionStr = sp.getValue("questions", "");
+                    Log.i("test", questionStr);
+                    list = JsonUtil.getGson().fromJson(questionStr,
+                            new TypeToken<ArrayList<QuestionBean>>() {
+                            }.getType());
+                    Intent intent = new Intent(mContext, TQuestionActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("questionList", (Serializable) list);
+                    intent.putExtras(bundle);
+                    intent.putExtra("titleName", "xiaoz的作业");
+                    startActivity(intent);
+//                    startActivity(new Intent(mContext, QuestionActivity.class));
                 }
             });
         }
